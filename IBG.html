@@ -1,0 +1,2549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IBG - International Business Group</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        /* ===== CSS RESET & VARIABLES ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --black: #000000;
+            --dark-bg: #0a0a0a;
+            --darker-bg: #050505;
+            --gold: #D4AF37;
+            --gold-light: #FFD700;
+            --text-color: #ffffff;
+            --text-light: #e5e7eb;
+            --border-gold: rgba(212, 175, 55, 0.3);
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            --shadow-gold: 0 0 20px rgba(212, 175, 55, 0.4);
+            --radius: 8px;
+            --transition: all 0.3s ease;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--text-color);
+            background-color: var(--black);
+            line-height: 1.6;
+            padding-top: 32px;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        h1 { font-size: 2.8rem; }
+        h2 { font-size: 2.2rem; }
+        h3 { font-size: 1.6rem; }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .section {
+            padding: 5rem 0;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-header h2 {
+            color: var(--gold);
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: var(--gold);
+            border-radius: 2px;
+        }
+
+        .section-header p {
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 1.5rem auto 0;
+        }
+
+        /* ===== CUSTOM ANIMATIONS ===== */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200% center; }
+            100% { background-position: 200% center; }
+        }
+
+        @keyframes slideInRight {
+            from { transform: translateX(50px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes slideInLeft {
+            from { transform: translateX(-50px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes scaleIn {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 5px rgba(212, 175, 55, 0.5); }
+            50% { box-shadow: 0 0 20px rgba(212, 175, 55, 0.8); }
+        }
+
+        .float-animation {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .shimmer-text {
+            background: linear-gradient(90deg, var(--gold), var(--gold-light), var(--gold));
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmer 3s linear infinite;
+        }
+
+        /* ===== LANGUAGE SWITCHER ===== */
+        .language-switcher {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(10, 10, 10, 0.95);
+            z-index: 1001;
+            padding: 0.5rem 0;
+            text-align: center;
+            border-bottom: 1px solid var(--border-gold);
+            backdrop-filter: blur(10px);
+        }
+
+        .lang-btn {
+            background: transparent;
+            color: var(--text-light);
+            border: 1px solid var(--border-gold);
+            padding: 0.25rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 0 0.25rem;
+            transition: var(--transition);
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .lang-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: var(--gold);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.3s, height 0.3s;
+        }
+
+        .lang-btn:hover::before {
+            width: 100px;
+            height: 100px;
+        }
+
+        .lang-btn:hover {
+            color: var(--black);
+            z-index: 1;
+        }
+
+        .lang-btn.active {
+            background: var(--gold);
+            color: var(--black);
+            border-color: var(--gold);
+            font-weight: 600;
+            box-shadow: var(--shadow-gold);
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            position: fixed;
+            top: 32px;
+            left: 0;
+            width: 100%;
+            background: rgba(5, 5, 5, 0.95);
+            z-index: 1000;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border-gold);
+            backdrop-filter: blur(10px);
+            transition: var(--transition);
+        }
+
+        .header.scrolled {
+            top: 0;
+            background: rgba(5, 5, 5, 0.98);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition);
+        }
+
+        .logo:hover {
+            transform: translateY(-2px);
+        }
+
+        .crown-logo {
+            color: var(--gold);
+            font-size: 1.5rem;
+            animation: pulse 2s infinite;
+        }
+
+        .logo h2 {
+            color: var(--gold);
+            font-size: 1.8rem;
+            margin: 0;
+        }
+
+        .logo span {
+            font-size: 0.7rem;
+            color: var(--text-light);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-menu a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 0.5rem 0;
+            position: relative;
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            transition: width 0.3s ease;
+        }
+
+        .nav-menu a:hover::after,
+        .nav-menu a.active::after {
+            width: 100%;
+        }
+
+        .nav-menu a:hover {
+            color: var(--gold);
+        }
+
+        .nav-menu a.active {
+            color: var(--gold);
+        }
+
+        .nav-cta .btn {
+            padding: 0.6rem 1.5rem;
+            font-size: 0.9rem;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .nav-cta .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .nav-cta .btn:hover::before {
+            left: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 4px;
+            padding: 5px;
+            z-index: 1002;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--gold);
+            border-radius: 2px;
+            transition: var(--transition);
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+
+        /* ===== BUTTONS ===== */
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: var(--transition);
+            text-align: center;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: var(--gold);
+            color: var(--black);
+            box-shadow: var(--shadow);
+        }
+
+        .btn-primary:hover {
+            background: var(--gold-light);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-gold);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--gold);
+            border: 2px solid var(--gold);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(212, 175, 55, 0.1);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-gold);
+        }
+
+        .btn-large {
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+        }
+
+        /* ===== HERO SECTION ===== */
+        .compact-hero {
+            min-height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.9)),
+                        url('https://images.unsplash.com/photo-1512453979798-5ea266f8880c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            padding-top: 100px;
+            position: relative;
+        }
+
+        .compact-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 30% 50%, rgba(212, 175, 55, 0.1) 0%, transparent 50%);
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-crown {
+            color: var(--gold);
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: float 3s ease-in-out infinite;
+            display: inline-block;
+        }
+
+        @keyframes pulse {
+            0%, 100% { 
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% { 
+                opacity: 0.7;
+                transform: scale(1.1);
+            }
+        }
+
+        .compact-hero h1 {
+            background: linear-gradient(to right, var(--gold), var(--gold-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+        }
+
+        .hero-subtitle {
+            color: var(--text-light);
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0.9;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        /* ===== SIMPLE CALCULATOR ===== */
+        .calculator-simple {
+            background: rgba(10, 10, 10, 0.8);
+            border: 1px solid var(--border-gold);
+            border-radius: var(--radius);
+            padding: 2rem;
+            margin: 0 auto;
+            max-width: 800px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transform: translateY(0);
+            transition: transform 0.3s ease;
+        }
+
+        .calculator-simple:hover {
+            transform: translateY(-5px);
+        }
+
+        .calc-step {
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: slideInRight 0.6s ease forwards;
+        }
+
+        .calc-step:nth-child(1) { animation-delay: 0.1s; }
+
+        .step-number {
+            display: inline-block;
+            background: var(--gold);
+            color: var(--black);
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 28px;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+        }
+
+        .calc-step h4 {
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+
+        .transport-selector {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.75rem;
+        }
+
+        .transport-btn {
+            background: rgba(20, 20, 20, 0.8);
+            border: 1px solid var(--border-gold);
+            border-radius: var(--radius);
+            padding: 1.5rem 0.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .transport-btn:hover {
+            background: rgba(212, 175, 55, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .transport-btn.active {
+            background: var(--gold);
+            color: var(--black);
+            border-color: var(--gold);
+            font-weight: 600;
+            box-shadow: var(--shadow-gold);
+        }
+
+        .transport-btn i {
+            display: block;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .transport-btn span {
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .calc-result {
+            background: rgba(212, 175, 55, 0.05);
+            border: 1px solid var(--border-gold);
+            border-radius: var(--radius);
+            padding: 2rem;
+            margin-top: 2rem;
+            animation: scaleIn 0.5s ease forwards;
+            text-align: center;
+        }
+
+        .calc-result p {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+
+        /* ===== COMPANIES SECTION ===== */
+        .companies-section {
+            background: rgba(5, 5, 5, 0.9);
+            border-top: 1px solid var(--border-gold);
+            border-bottom: 1px solid var(--border-gold);
+            padding: 4rem 0;
+            margin: 3rem 0;
+        }
+
+        .companies-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .company-card {
+            background: rgba(10, 10, 10, 0.8);
+            border: 1px solid var(--border-gold);
+            border-radius: var(--radius);
+            padding: 2.5rem 2rem;
+            text-align: center;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .company-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .company-card:hover::before {
+            left: 100%;
+        }
+
+        .company-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: var(--shadow-gold);
+        }
+
+        .company-logo {
+            color: var(--gold);
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+        }
+
+        .company-card h3 {
+            color: var(--gold);
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+
+        .company-card p {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+        }
+
+        /* ===== ABOUT ===== */
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin: 3rem 0;
+        }
+
+        .about-card {
+            background: rgba(10, 10, 10, 0.8);
+            border: 1px solid var(--border-gold);
+            border-radius: var(--radius);
+            padding: 2rem;
+            text-align: center;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .about-card:hover::before {
+            left: 100%;
+        }
+
+        .about-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: var(--shadow-gold);
+        }
+
+        .about-icon {
+            color: var(--gold);
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        .about-card h3 {
+            color: var(--text-color);
+            margin-bottom: 0.75rem;
+        }
+
+        .about-card p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        /* ===== CEO SPOTLIGHT ===== */
+        .ceo-spotlight {
+            background: linear-gradient(135deg, rgba(10, 10, 10, 0.9), rgba(5, 5, 5, 0.95));
+            border: 1px solid var(--border-gold);
+            border-radius: var(--radius);
+            padding: 3rem;
+            margin: 3rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ceo-spotlight::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.05) 0%, transparent 70%);
+            animation: glow 4s ease-in-out infinite;
+        }
+
+        .ceo-content {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 3rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .ceo-photo {
+            position: relative;
+            border-radius: 50%;
+            overflow: hidden;
+            width: 280px;
+            height: 280px;
+            border: 4px solid var(--gold);
+            box-shadow: var(--shadow-gold);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .ceo-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .ceo-photo:hover img {
+            transform: scale(1.05);
+        }
+
+        .ceo-badge {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background: var(--gold);
+            color: var(--black);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            border: 3px solid var(--black);
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+        }
+
+        .ceo-info h3 {
+            color: var(--gold);
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .ceo-title {
+            color: var(--gold-light);
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+        }
+
+        .ceo-quote {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            padding-left: 1.5rem;
+            border-left: 3px solid var(--gold);
+            font-style: italic;
+        }
+
+        .ceo-achievements {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .achievement-item {
+            background: rgba(212, 175, 55, 0.05);
+            border: 1px solid var(--border-gold);
+            border-radius: var(--radius);
+            padding: 1rem;
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .achievement-item:hover {
+            background: rgba(212, 175, 55, 0.1);
+            transform: translateY(-3px);
+        }
+
+        .achievement-item i {
+            color: var(--gold);
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .achievement-item span {
+            display: block;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        .ceo-contact-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: transparent;
+            color: var(--gold);
+            border: 2px solid var(--gold);
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            margin-top: 1rem;
+        }
+
+        .ceo-contact-btn:hover {
+            background: var(--gold);
+            color: var(--black);
+            transform: translateY(-3px);
+        }
+
+        /* ===== QR CODE SECTION ===== */
+        .qr-section {
+            background: rgba(10, 10, 10, 0.9);
+            border: 1px solid var(--border-gold);
+            border-radius: var(--radius);
+            padding: 3rem;
+            margin: 3rem 0;
+        }
+
+        .qr-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .qr-card {
+            background: rgba(20, 20, 20, 0.8);
+            border: 1px solid var(--border-gold);
+            border-radius: var(--radius);
+            padding: 2rem;
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .qr-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-gold);
+        }
+
+        .qr-icon {
+            color: var(--gold);
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .qr-card h4 {
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .qr-card p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .qr-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--gold);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .qr-link:hover {
+            color: var(--gold-light);
+        }
+
+        /* ===== SERVICES ===== */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .service-card-compact {
+            background: rgba(10, 10, 10, 0.8);
+            border: 1px solid var(--border-gold);
+            border-radius: var(--radius);
+            padding: 2rem;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card-compact::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--gold);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+
+        .service-card-compact:hover::before {
+            transform: scaleX(1);
+        }
+
+        .service-card-compact:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-gold);
+        }
+
+        .service-icon {
+            color: var(--gold);
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        .service-card-compact h3 {
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+
+        .service-card-compact p {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+        }
+
+        .service-card-compact ul {
+            list-style: none;
+            margin: 1.5rem 0;
+        }
+
+        .service-card-compact ul li {
+            color: var(--text-light);
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--border-gold);
+            font-size: 0.9rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .service-card-compact ul li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--gold);
+            font-weight: bold;
+        }
+
+        .service-card-compact ul li:last-child {
+            border-bottom: none;
+        }
+
+        .service-link {
+            display: inline-block;
+            color: var(--gold);
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 1rem;
+            position: relative;
+            padding-bottom: 2px;
+        }
+
+        .service-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            transition: width 0.3s ease;
+        }
+
+        .service-link:hover::after {
+            width: 100%;
+        }
+
+        .service-link:hover {
+            color: var(--gold-light);
+        }
+
+        /* ===== INQUIRY FORM ===== */
+        .inquiry-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .inquiry-form {
+            background: rgba(10, 10, 10, 0.8);
+            border: 1px solid var(--border-gold);
+            border-radius: var(--radius);
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            background: rgba(20, 20, 20, 0.8);
+            border: 1px solid var(--border-gold);
+            border-radius: var(--radius);
+            color: var(--text-color);
+            font-family: 'Montserrat', sans-serif;
+            transition: var(--transition);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--gold-light);
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+        }
+
+        .form-group textarea {
+            height: 120px;
+            resize: vertical;
+        }
+
+        .inquiry-type-selector {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+        }
+
+        .inquiry-type-option {
+            background: rgba(20, 20, 20, 0.8);
+            border: 1px solid var(--border-gold);
+            border-radius: var(--radius);
+            padding: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .inquiry-type-option:hover {
+            background: rgba(212, 175, 55, 0.1);
+        }
+
+        .inquiry-type-option input {
+            display: none;
+        }
+
+        .inquiry-type-option.active {
+            background: var(--gold);
+            border-color: var(--gold);
+        }
+
+        .inquiry-type-option.active .option-content {
+            color: var(--black);
+        }
+
+        .inquiry-type-option.active i {
+            color: var(--black);
+        }
+
+        .option-content {
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .option-content i {
+            color: var(--gold);
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            transition: var(--transition);
+        }
+
+        .option-content span {
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: block;
+        }
+
+        .form-actions {
+            margin-top: 2rem;
+        }
+
+        .btn-submit {
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-submit::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 5px;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.5);
+            opacity: 0;
+            border-radius: 100%;
+            transform: scale(1, 1) translate(-50%);
+            transform-origin: 50% 50%;
+        }
+
+        .btn-submit:focus:not(:active)::after {
+            animation: ripple 1s ease-out;
+        }
+
+        @keyframes ripple {
+            0% {
+                transform: scale(0, 0);
+                opacity: 0.5;
+            }
+            100% {
+                transform: scale(40, 40);
+                opacity: 0;
+            }
+        }
+
+        .form-note {
+            color: var(--text-light);
+            font-size: 0.85rem;
+            text-align: center;
+            margin-top: 1rem;
+            opacity: 0.7;
+        }
+
+        /* ===== INQUIRY INFO ===== */
+        .inquiry-info {
+            padding: 0 1rem;
+        }
+
+        .inquiry-info h3 {
+            color: var(--gold);
+            margin-bottom: 2rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .inquiry-info h3::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--gold);
+            border-radius: 2px;
+        }
+
+        .info-card {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: rgba(10, 10, 10, 0.5);
+            border-radius: var(--radius);
+            transition: var(--transition);
+            opacity: 0;
+            animation: slideInLeft 0.6s ease forwards;
+        }
+
+        .info-card:nth-child(1) { animation-delay: 0.1s; }
+        .info-card:nth-child(2) { animation-delay: 0.2s; }
+        .info-card:nth-child(3) { animation-delay: 0.3s; }
+
+        .info-card:hover {
+            background: rgba(212, 175, 55, 0.1);
+            transform: translateX(10px);
+        }
+
+        .info-icon {
+            color: var(--gold);
+            font-size: 1.5rem;
+            min-width: 40px;
+            text-align: center;
+        }
+
+        .info-content h4 {
+            color: var(--text-color);
+            margin-bottom: 0.25rem;
+        }
+
+        .info-content p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .contact-direct {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-gold);
+        }
+
+        .contact-direct h4 {
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+
+        .direct-contacts {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .contact-link {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--text-light);
+            text-decoration: none;
+            padding: 0.75rem;
+            background: rgba(10, 10, 10, 0.5);
+            border-radius: var(--radius);
+            transition: var(--transition);
+        }
+
+        .contact-link:hover {
+            background: rgba(212, 175, 55, 0.1);
+            color: var(--gold);
+            transform: translateX(5px);
+        }
+
+        .contact-link i {
+            color: var(--gold);
+            width: 20px;
+            text-align: center;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: var(--darker-bg);
+            padding: 4rem 0 2rem;
+            border-top: 1px solid var(--border-gold);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 70% 0%, rgba(212, 175, 55, 0.05) 0%, transparent 50%);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin-bottom: 3rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer-col h3 {
+            color: var(--gold);
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+
+        .footer-col p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 0.75rem;
+            transition: var(--transition);
+        }
+
+        .footer-col ul li:hover {
+            transform: translateX(5px);
+        }
+
+        .footer-col ul li a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: var(--transition);
+            display: block;
+        }
+
+        .footer-col ul li a:hover {
+            color: var(--gold);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background: rgba(212, 175, 55, 0.1);
+            border-radius: 50%;
+            color: var(--gold);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .social-link:hover {
+            background: var(--gold);
+            color: var(--black);
+            transform: translateY(-3px) rotate(5deg);
+        }
+
+        .contact-info-footer p {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-info-footer i {
+            color: var(--gold);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-gold);
+            color: var(--text-light);
+            font-size: 0.9rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .founder-credit {
+            color: var(--gold);
+            margin-top: 0.5rem;
+            font-weight: 600;
+            display: inline-block;
+            position: relative;
+        }
+
+        .founder-credit::after {
+            content: '👑';
+            position: absolute;
+            right: -25px;
+            top: 50%;
+            transform: translateY(-50%);
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .founder-credit:hover::after {
+            opacity: 1;
+            right: -30px;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1200px) {
+            .ceo-content {
+                grid-template-columns: 250px 1fr;
+                gap: 2rem;
+            }
+            
+            .ceo-photo {
+                width: 240px;
+                height: 240px;
+            }
+            
+            .qr-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 992px) {
+            .about-grid,
+            .companies-grid,
+            .services-grid,
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .inquiry-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .inquiry-info {
+                padding: 2rem 0 0;
+            }
+            
+            .ceo-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .ceo-photo {
+                margin: 0 auto;
+            }
+            
+            .ceo-achievements {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .transport-selector {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1rem;
+            }
+            
+            h1 { font-size: 2.2rem; }
+            h2 { font-size: 1.8rem; }
+            
+            .section {
+                padding: 3rem 0;
+            }
+            
+            .nav-menu {
+                position: fixed;
+                top: 0;
+                left: -100%;
+                flex-direction: column;
+                background: rgba(5, 5, 5, 0.98);
+                width: 100%;
+                height: 100vh;
+                padding: 5rem 2rem 2rem;
+                transition: 0.5s ease;
+                z-index: 999;
+                backdrop-filter: blur(10px);
+            }
+            
+            .nav-menu.active {
+                left: 0;
+            }
+            
+            .hamburger {
+                display: flex;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+            
+            .hero-buttons .btn {
+                width: 100%;
+                max-width: 300px;
+                margin: 0 auto;
+            }
+            
+            .about-grid,
+            .companies-grid,
+            .services-grid,
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .ceo-spotlight {
+                padding: 2rem;
+            }
+            
+            .ceo-achievements {
+                grid-template-columns: 1fr;
+            }
+            
+            .ceo-photo {
+                width: 200px;
+                height: 200px;
+            }
+            
+            .qr-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .transport-selector {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .compact-hero {
+                min-height: 90vh;
+                padding-top: 80px;
+            }
+            
+            .compact-hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+            
+            .calculator-simple {
+                padding: 1.5rem;
+            }
+            
+            .ceo-spotlight {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Language Switcher -->
+    <div class="language-switcher">
+        <div class="container">
+            <button class="lang-btn active" data-lang="en">EN</button>
+            <button class="lang-btn" data-lang="ru">RU</button>
+            <button class="lang-btn" data-lang="uz">UZ</button>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">
+                    <div class="crown-logo">
+                        <i class="fas fa-crown"></i>
+                    </div>
+                    <div>
+                        <h2>IBG Group</h2>
+                        <span data-key="logo_subtitle">International Business Group</span>
+                    </div>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="#home" class="active" data-key="nav_home">Home</a></li>
+                    <li><a href="#companies" data-key="nav_companies">Our Companies</a></li>
+                    <li><a href="#calculator" data-key="nav_calculator">Get Quote</a></li>
+                    <li><a href="#services" data-key="nav_services">Services</a></li>
+                    <li><a href="#leadership" data-key="nav_leadership">Leadership</a></li>
+                    <li><a href="#contact" data-key="nav_contact">Contact</a></li>
+                </ul>
+                <div class="nav-cta">
+                    <a href="#calculator" class="btn btn-primary" data-key="nav_calculator">Quick Quote</a>
+                </div>
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="compact-hero">
+        <div class="container">
+            <div class="hero-content" data-aos="fade-up" data-aos-duration="1000">
+                <div class="hero-crown">
+                    <i class="fas fa-crown"></i>
+                </div>
+                <h1 data-key="hero_title">International Business Group</h1>
+                <p class="hero-subtitle" data-key="hero_subtitle">
+                    27 Years of Excellence in Global Logistics, Investments & Trade Solutions
+                </p>
+                <div class="hero-buttons">
+                    <a href="#calculator" class="btn btn-primary" data-key="hero_btn1">Get Quote Now</a>
+                    <a href="#leadership" class="btn btn-secondary" data-key="hero_btn2">Meet Our CEO</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Companies -->
+    <section id="companies" class="section">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <h2 data-key="companies_title">Our Group of Companies</h2>
+                <p data-key="companies_subtitle">Comprehensive business solutions across multiple sectors</p>
+            </div>
+            
+            <div class="companies-section">
+                <div class="companies-grid">
+                    <div class="company-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="company-logo">
+                            <i class="fas fa-shipping-fast"></i>
+                        </div>
+                        <h3>IBG</h3>
+                        <p>International Business Group - Premium global logistics and freight forwarding</p>
+                    </div>
+                    
+                    <div class="company-card" data-aos="fade-up" data-aos-delay="200">
+                        <div class="company-logo">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3>Roh</h3>
+                        <p>Strategic investments, market analysis, and business development</p>
+                    </div>
+                    
+                    <div class="company-card" data-aos="fade-up" data-aos-delay="300">
+                        <div class="company-logo">
+                            <i class="fas fa-handshake"></i>
+                        </div>
+                        <h3>Toj Invest</h3>
+                        <p>Investment partnerships and financial solutions</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Simple Calculator -->
+    <section id="calculator" class="section">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <h2 data-key="calc_title">Quick Logistics Request</h2>
+                <p data-key="calc_subtitle">Select transport type and we'll contact you immediately</p>
+            </div>
+            
+            <div class="calculator-simple" data-aos="zoom-in" data-aos-delay="200">
+                <div class="calc-step">
+                    <div class="step-number">1</div>
+                    <h4 data-key="step1_title">Select Transport Type</h4>
+                    <div class="transport-selector">
+                        <button class="transport-btn" data-type="air">
+                            <i class="fas fa-plane"></i>
+                            <span data-key="transport_air">Air Freight</span>
+                        </button>
+                        <button class="transport-btn" data-type="sea">
+                            <i class="fas fa-ship"></i>
+                            <span data-key="transport_sea">Sea Shipping</span>
+                        </button>
+                        <button class="transport-btn" data-type="rail">
+                            <i class="fas fa-train"></i>
+                            <span data-key="transport_rail">Rail Transport</span>
+                        </button>
+                        <button class="transport-btn" data-type="road">
+                            <i class="fas fa-truck"></i>
+                            <span data-key="transport_road">Road Transport</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="calc-result">
+                    <p data-key="result_text">Ready to discuss your logistics needs? We'll provide a customized solution.</p>
+                    <button class="btn btn-primary btn-large btn-block" id="requestQuote">
+                        <span data-key="result_btn">Request Immediate Quote</span> <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About -->
+    <section id="about" class="section">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <h2 data-key="about_title">Why Choose IBG Group?</h2>
+                <p data-key="about_subtitle">27 years of trusted partnership and excellence</p>
+            </div>
+            
+            <div class="about-grid">
+                <div class="about-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="about-icon">
+                        <i class="fas fa-history"></i>
+                    </div>
+                    <h3 data-key="feature1_title">27+ Years Experience</h3>
+                    <p data-key="feature1_desc">Established track record since 1997</p>
+                </div>
+                
+                <div class="about-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="about-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h3 data-key="feature2_title">Global Network</h3>
+                    <p data-key="feature2_desc">Strategic partnerships across 12+ countries</p>
+                </div>
+                
+                <div class="about-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="about-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 data-key="feature3_title">Cost-Effective</h3>
+                    <p data-key="feature3_desc">Optimized routes saving clients 15-25%</p>
+                </div>
+                
+                <div class="about-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="about-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3 data-key="feature4_title">24/7 Support</h3>
+                    <p data-key="feature4_desc">Personal manager for each client</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services -->
+    <section id="services" class="section">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <h2 data-key="services_title">Our Services</h2>
+                <p data-key="services_subtitle">Comprehensive logistics and business solutions</p>
+            </div>
+            
+            <div class="services-grid">
+                <div class="service-card-compact" data-aos="fade-right" data-aos-delay="100">
+                    <div class="service-icon">
+                        <i class="fas fa-shipping-fast"></i>
+                    </div>
+                    <h3 data-key="service1_title">Logistics</h3>
+                    <p data-key="service1_desc">Air, sea, rail & road transport</p>
+                    <ul>
+                        <li data-key="service1_item1">Freight forwarding</li>
+                        <li data-key="service1_item2">Customs clearance</li>
+                        <li data-key="service1_item3">Warehousing</li>
+                    </ul>
+                    <a href="#contact" class="service-link" data-key="service_link">Request Logistics Quote →</a>
+                </div>
+                
+                <div class="service-card-compact" data-aos="fade-up" data-aos-delay="200">
+                    <div class="service-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 data-key="service2_title">Investments</h3>
+                    <p data-key="service2_desc">Strategic business development</p>
+                    <ul>
+                        <li data-key="service2_item1">Market analysis</li>
+                        <li data-key="service2_item2">Partnership setup</li>
+                        <li data-key="service2_item3">Project funding</li>
+                    </ul>
+                    <a href="#contact" class="service-link" data-key="service_link">Discuss Investments →</a>
+                </div>
+                
+                <div class="service-card-compact" data-aos="fade-left" data-aos-delay="300">
+                    <div class="service-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h3 data-key="service3_title">Global Trade</h3>
+                    <p data-key="service3_desc">International wholesale & supply</p>
+                    <ul>
+                        <li data-key="service3_item1">Import/export</li>
+                        <li data-key="service3_item2">Market access</li>
+                        <li data-key="service3_item3">Trade facilitation</li>
+                    </ul>
+                    <a href="#contact" class="service-link" data-key="service_link">Explore Trade →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CEO Spotlight -->
+    <section id="leadership" class="section">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <h2 data-key="ceo_title">Leadership & Vision</h2>
+                <p data-key="ceo_subtitle">Driving excellence from the top</p>
+            </div>
+            
+            <div class="ceo-spotlight" data-aos="zoom-in">
+                <div class="ceo-content">
+                    <div class="ceo-photo">
+                        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Zafarbek Tojiakhmedov - Founder & CEO">
+                        <div class="ceo-badge">
+                            <i class="fas fa-crown"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="ceo-info">
+                        <h3 data-key="ceo_name">Zafarbek Tojiakhmedov</h3>
+                        <p class="ceo-title" data-key="ceo_position">Founder & Chief Executive Officer</p>
+                        
+                        <p class="ceo-quote" data-key="ceo_quote">
+                            "For 27 years, we have been bridging Uzbekistan with global markets through innovative logistics solutions, 
+                            strategic investments, and unwavering commitment to excellence. We don't just move goods; 
+                            we build relationships that transcend borders."
+                        </p>
+                        
+                        <div class="ceo-achievements">
+                            <div class="achievement-item">
+                                <i class="fas fa-briefcase"></i>
+                                <span data-key="achievement1">27+ Years Experience</span>
+                            </div>
+                            <div class="achievement-item">
+                                <i class="fas fa-globe-asia"></i>
+                                <span data-key="achievement2">12+ Countries Network</span>
+                            </div>
+                            <div class="achievement-item">
+                                <i class="fas fa-trophy"></i>
+                                <span data-key="achievement3">Industry Awards</span>
+                            </div>
+                        </div>
+                        
+                        <p data-key="ceo_bio" style="color: var(--text-light); margin-bottom: 1.5rem;">
+                            With 27 years of experience in international trade and logistics, Zafarbek has transformed 
+                            IBG Group into a leading force in Central Asian business. His vision combines traditional business 
+                            wisdom with modern technological solutions, creating a unique value proposition for clients 
+                            across continents.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- QR Code Section -->
+    <section id="qrcodes" class="section">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <h2 data-key="qr_title">Connect With Us</h2>
+                <p data-key="qr_subtitle">Connect on your preferred platform</p>
+            </div>
+            
+            <div class="qr-section" data-aos="zoom-in">
+                <div class="qr-grid">
+                    <div class="qr-card">
+                        <div class="qr-icon">
+                            <i class="fab fa-telegram"></i>
+                        </div>
+                        <h4>Telegram</h4>
+                        <p>For instant messaging and updates</p>
+                        <a href="https://t.me/ibg_group" target="_blank" class="qr-link">
+                            <i class="fab fa-telegram"></i>
+                            <span>Join Channel</span>
+                        </a>
+                    </div>
+                    
+                    <div class="qr-card">
+                        <div class="qr-icon">
+                            <i class="fab fa-whatsapp"></i>
+                        </div>
+                        <h4>WhatsApp</h4>
+                        <p>Business inquiries and support</p>
+                        <a href="https://wa.me/998999090777" target="_blank" class="qr-link">
+                            <i class="fab fa-whatsapp"></i>
+                            <span>Chat Now</span>
+                        </a>
+                    </div>
+                    
+                    <div class="qr-card">
+                        <div class="qr-icon">
+                            <i class="fab fa-weixin"></i>
+                        </div>
+                        <h4>WeChat</h4>
+                        <p>Chinese business partners</p>
+                        <a href="#" class="qr-link">
+                            <i class="fab fa-weixin"></i>
+                            <span>Add Contact</span>
+                        </a>
+                    </div>
+                    
+                    <div class="qr-card">
+                        <div class="qr-icon">
+                            <i class="fas fa-comment"></i>
+                        </div>
+                        <h4>KakaoTalk</h4>
+                        <p>Korean clients and partners</p>
+                        <a href="#" class="qr-link">
+                            <i class="fas fa-comment"></i>
+                            <span>Connect</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <h2 data-key="contact_title">Contact Information</h2>
+                <p data-key="contact_subtitle">Reach out to us through any channel</p>
+            </div>
+            
+            <div class="inquiry-container">
+                <div class="inquiry-form" data-aos="fade-right">
+                    <form id="professionalInquiry">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label data-key="form_name">Full Name *</label>
+                                <input type="text" required placeholder="John Smith">
+                            </div>
+                            <div class="form-group">
+                                <label data-key="form_company">Company</label>
+                                <input type="text" placeholder="Your Company Name">
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label data-key="form_email">Email *</label>
+                                <input type="email" required placeholder="john@company.com">
+                            </div>
+                            <div class="form-group">
+                                <label data-key="form_phone">Phone *</label>
+                                <input type="tel" required placeholder="+998 90 123 45 67">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label data-key="form_type">Service Needed *</label>
+                            <select style="width: 100%; padding: 0.75rem; background: rgba(20, 20, 20, 0.8); border: 1px solid var(--border-gold); border-radius: var(--radius); color: var(--text-color); font-family: 'Montserrat', sans-serif;">
+                                <option value="">Select Service Type</option>
+                                <option value="logistics">Logistics Services (IBG)</option>
+                                <option value="investment">Investment (Roh & Toj Invest)</option>
+                                <option value="trade">Global Trade</option>
+                                <option value="consulting">Business Consulting</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label data-key="form_message">Project Description *</label>
+                            <textarea required placeholder="Tell us about your project..."></textarea>
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary btn-submit">
+                                <i class="fas fa-paper-plane"></i>
+                                <span data-key="form_submit">Send Inquiry</span>
+                            </button>
+                            <div class="form-note">
+                                <i class="fas fa-shield-alt"></i>
+                                <span data-key="form_note">Your information is secure. We'll respond within 24 hours.</span>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                
+                <div class="inquiry-info" data-aos="fade-left">
+                    <h3 data-key="info_title">Contact Details</h3>
+                    
+                    <div class="info-card">
+                        <div class="info-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="info-content">
+                            <h4>Main Office</h4>
+                            <p>Tashkent, Uzbekistan</p>
+                        </div>
+                    </div>
+                    
+                    <div class="info-card">
+                        <div class="info-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="info-content">
+                            <h4>Phone Numbers</h4>
+                            <p>+998 99 909 07 77 (Mobile)<br>+998 90 003 20 00 (WhatsApp)</p>
+                        </div>
+                    </div>
+                    
+                    <div class="info-card">
+                        <div class="info-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="info-content">
+                            <h4>Home Phone</h4>
+                            <p>+998 90 320 00 00</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-direct">
+                        <h4 data-key="contact_title">Direct Contact</h4>
+                        <div class="direct-contacts">
+                            <a href="mailto:imronbekgroup@gmail.com" class="contact-link">
+                                <i class="fas fa-envelope"></i>
+                                imronbekgroup@gmail.com
+                            </a>
+                            <a href="https://wa.me/998900032000" class="contact-link" target="_blank">
+                                <i class="fab fa-whatsapp"></i>
+                                +998 90 003 20 00
+                            </a>
+                            <a href="tel:+998999090777" class="contact-link">
+                                <i class="fas fa-phone"></i>
+                                +998 99 909 07 77
+                            </a>
+                            <a href="tel:+998903200000" class="contact-link">
+                                <i class="fas fa-phone"></i>
+                                +998 90 320 00 00 (Home)
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <div class="footer-logo">
+                        <div class="crown-logo">
+                            <i class="fas fa-crown"></i>
+                        </div>
+                        <h3>IBG Group</h3>
+                    </div>
+                    <p data-key="footer_desc">27 years of excellence in global logistics, strategic investments, and international trade solutions.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://t.me/ibg_group" target="_blank" class="social-link"><i class="fab fa-telegram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
+                        <a href="https://wa.me/998999090777" class="social-link" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-weixin"></i></a>
+                        <a href="#" class="social-link"><i class="fas fa-comment"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h3 data-key="footer_links">Quick Links</h3>
+                    <ul>
+                        <li><a href="#home" data-key="nav_home">Home</a></li>
+                        <li><a href="#companies" data-key="nav_companies">Our Companies</a></li>
+                        <li><a href="#calculator" data-key="nav_calculator">Get Quote</a></li>
+                        <li><a href="#services" data-key="nav_services">Services</a></li>
+                        <li><a href="#leadership" data-key="nav_leadership">Leadership</a></li>
+                        <li><a href="#contact" data-key="nav_contact">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Our Companies</h3>
+                    <ul>
+                        <li><a href="#companies">IBG (Logistics)</a></li>
+                        <li><a href="#companies">Roh (Investments)</a></li>
+                        <li><a href="#companies">Toj Invest (Finance)</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3 data-key="footer_contact">Contact Info</h3>
+                    <div class="contact-info-footer">
+                        <p><i class="fas fa-map-marker-alt"></i> <span>Tashkent, Uzbekistan</span></p>
+                        <p><i class="fas fa-phone"></i> +998 99 909 07 77</p>
+                        <p><i class="fas fa-phone"></i> +998 90 320 00 00 (Home)</p>
+                        <p><i class="fas fa-envelope"></i> imronbekgroup@gmail.com</p>
+                        <p><i class="fas fa-user-tie"></i> <span data-key="ceo_name">Zafarbek Tojiakhmedov</span></p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 International Business Group. <span data-key="footer_rights">All rights reserved.</span></p>
+                <p class="founder-credit"><span data-key="footer_founder">Founded by Zafarbek Tojiakhmedov • Established 1997 • 27 Years of Excellence</span></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true,
+            offset: 100,
+            easing: 'ease-out-cubic'
+        });
+
+        // Mobile Menu Toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.nav-menu');
+        const navLinks = document.querySelectorAll('.nav-menu a');
+        
+        if (hamburger) {
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('active');
+                navMenu.classList.toggle('active');
+                document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
+            });
+        }
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
+
+        // Header scroll effect
+        const header = document.querySelector('.header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Active nav link on scroll
+        const sections = document.querySelectorAll('section');
+        const navItems = document.querySelectorAll('.nav-menu a');
+
+        function setActiveNavLink() {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navItems.forEach(item => {
+                item.classList.remove('active');
+                if (item.getAttribute('href') === `#${current}`) {
+                    item.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', setActiveNavLink);
+
+        // Simple Calculator Functionality
+        const transportBtns = document.querySelectorAll('.transport-btn');
+        const requestQuoteBtn = document.getElementById('requestQuote');
+        
+        transportBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                transportBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                btn.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    btn.style.transform = 'scale(1)';
+                }, 150);
+            });
+        });
+        
+        requestQuoteBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const activeService = document.querySelector('.transport-btn.active');
+            
+            // Scroll to contact form
+            document.querySelector('#contact').scrollIntoView({ 
+                behavior: 'smooth',
+                block: 'start'
+            });
+            
+            // Auto-fill service type in contact form
+            setTimeout(() => {
+                const serviceSelect = document.querySelector('select');
+                if (serviceSelect && activeService) {
+                    serviceSelect.value = 'logistics';
+                }
+            }, 800);
+        });
+
+        // Language Switching
+        const translations = {
+            en: {
+                'logo_subtitle': 'International Business Group',
+                'nav_home': 'Home',
+                'nav_companies': 'Our Companies',
+                'nav_calculator': 'Get Quote',
+                'nav_services': 'Services',
+                'nav_leadership': 'Leadership',
+                'nav_contact': 'Contact',
+                'hero_title': 'International Business Group',
+                'hero_subtitle': '27 Years of Excellence in Global Logistics, Investments & Trade Solutions',
+                'hero_btn1': 'Get Quote Now',
+                'hero_btn2': 'Meet Our CEO',
+                'companies_title': 'Our Group of Companies',
+                'companies_subtitle': 'Comprehensive business solutions across multiple sectors',
+                'calc_title': 'Quick Logistics Request',
+                'calc_subtitle': 'Select transport type and we\'ll contact you immediately',
+                'step1_title': 'Select Transport Type',
+                'transport_air': 'Air Freight',
+                'transport_sea': 'Sea Shipping',
+                'transport_rail': 'Rail Transport',
+                'transport_road': 'Road Transport',
+                'result_text': 'Ready to discuss your logistics needs? We\'ll provide a customized solution.',
+                'result_btn': 'Request Immediate Quote',
+                'about_title': 'Why Choose IBG Group?',
+                'about_subtitle': '27 years of trusted partnership and excellence',
+                'feature1_title': '27+ Years Experience',
+                'feature1_desc': 'Established track record since 1997',
+                'feature2_title': 'Global Network',
+                'feature2_desc': 'Strategic partnerships across 12+ countries',
+                'feature3_title': 'Cost-Effective',
+                'feature3_desc': 'Optimized routes saving clients 15-25%',
+                'feature4_title': '24/7 Support',
+                'feature4_desc': 'Personal manager for each client',
+                'services_title': 'Our Services',
+                'services_subtitle': 'Comprehensive logistics and business solutions',
+                'service1_title': 'Logistics',
+                'service1_desc': 'Air, sea, rail & road transport',
+                'service1_item1': 'Freight forwarding',
+                'service1_item2': 'Customs clearance',
+                'service1_item3': 'Warehousing',
+                'service2_title': 'Investments',
+                'service2_desc': 'Strategic business development',
+                'service2_item1': 'Market analysis',
+                'service2_item2': 'Partnership setup',
+                'service2_item3': 'Project funding',
+                'service3_title': 'Global Trade',
+                'service3_desc': 'International wholesale & supply',
+                'service3_item1': 'Import/export',
+                'service3_item2': 'Market access',
+                'service3_item3': 'Trade facilitation',
+                'service_link': 'Request Logistics Quote →',
+                'qr_title': 'Connect With Us',
+                'qr_subtitle': 'Connect on your preferred platform',
+                'contact_title': 'Contact Information',
+                'contact_subtitle': 'Reach out to us through any channel',
+                'form_name': 'Full Name *',
+                'form_company': 'Company',
+                'form_email': 'Email *',
+                'form_phone': 'Phone *',
+                'form_type': 'Service Needed *',
+                'form_message': 'Project Description *',
+                'form_submit': 'Send Inquiry',
+                'form_note': 'Your information is secure. We\'ll respond within 24 hours.',
+                'info_title': 'Contact Details',
+                'footer_desc': '27 years of excellence in global logistics, strategic investments, and international trade solutions.',
+                'footer_links': 'Quick Links',
+                'footer_contact': 'Contact Info',
+                'footer_rights': 'All rights reserved.',
+                'footer_founder': 'Founded by Zafarbek Tojiakhmedov'
+            },
+            ru: {
+                'logo_subtitle': 'Международная Бизнес Группа',
+                'nav_home': 'Главная',
+                'nav_companies': 'Наши Компании',
+                'nav_calculator': 'Расчет',
+                'nav_services': 'Услуги',
+                'nav_leadership': 'Руководство',
+                'nav_contact': 'Контакты',
+                'hero_title': 'Международная Бизнес Группа',
+                'hero_subtitle': '27 лет совершенства в глобальной логистике, инвестициях и торговых решениях',
+                'hero_btn1': 'Рассчитать Сейчас',
+                'hero_btn2': 'Встретьтесь с CEO',
+                'companies_title': 'Наша Группа Компаний',
+                'companies_subtitle': 'Комплексные бизнес-решения в различных секторах',
+                'calc_title': 'Быстрый Логистический Запрос',
+                'calc_subtitle': 'Выберите тип транспорта и мы свяжемся с вами немедленно',
+                'step1_title': 'Выберите Тип Транспорта',
+                'transport_air': 'Авиаперевозки',
+                'transport_sea': 'Морские перевозки',
+                'transport_rail': 'Железнодорожные перевозки',
+                'transport_road': 'Автоперевозки',
+                'result_text': 'Готовы обсудить ваши логистические потребности? Мы предоставим индивидуальное решение.',
+                'result_btn': 'Запросить Предложение',
+                'about_title': 'Почему Выбирают IBG Group?',
+                'about_subtitle': '27 лет доверия и совершенства',
+                'feature1_title': '27+ лет опыта',
+                'feature1_desc': 'Установленная репутация с 1997 года',
+                'feature2_title': 'Глобальная Сеть',
+                'feature2_desc': 'Стратегическое партнерство в 12+ странах',
+                'feature3_title': 'Экономическая Эффективность',
+                'feature3_desc': 'Оптимизированные маршруты экономят клиентам 15-25%',
+                'feature4_title': 'Поддержка 24/7',
+                'feature4_desc': 'Персональный менеджер для каждого клиента',
+                'services_title': 'Наши Услуги',
+                'services_subtitle': 'Комплексные логистические и бизнес-решения',
+                'service1_title': 'Логистика',
+                'service1_desc': 'Авиа, морские, ж/д и авто перевозки',
+                'service1_item1': 'Фрахт',
+                'service1_item2': 'Таможенное оформление',
+                'service1_item3': 'Складирование',
+                'service2_title': 'Инвестиции',
+                'service2_desc': 'Стратегическое развитие бизнеса',
+                'service2_item1': 'Анализ рынка',
+                'service2_item2': 'Организация партнерства',
+                'service2_item3': 'Финансирование проектов',
+                'service3_title': 'Международная Торговля',
+                'service3_desc': 'Международный опт и поставки',
+                'service3_item1': 'Импорт/экспорт',
+                'service3_item2': 'Выход на рынок',
+                'service3_item3': 'Содействие торговле',
+                'service_link': 'Запросить Логистику →',
+                'qr_title': 'Свяжитесь с Нами',
+                'qr_subtitle': 'Свяжитесь на предпочитаемой платформе',
+                'contact_title': 'Контактная Информация',
+                'contact_subtitle': 'Свяжитесь с нами через любой канал',
+                'form_name': 'ФИО *',
+                'form_company': 'Компания',
+                'form_email': 'Email *',
+                'form_phone': 'Телефон *',
+                'form_type': 'Требуемая Услуга *',
+                'form_message': 'Описание Проекта *',
+                'form_submit': 'Отправить Запрос',
+                'form_note': 'Ваши данные защищены. Ответим в течение 24 часов.',
+                'info_title': 'Контактные Данные',
+                'footer_desc': '27 лет совершенства в глобальной логистике, стратегических инвестициях и международных торговых решениях.',
+                'footer_links': 'Быстрые Ссылки',
+                'footer_contact': 'Контактная Информация',
+                'footer_rights': 'Все права защищены.',
+                'footer_founder': 'Основатель: Зафарбек Тожиахмедов'
+            },
+            uz: {
+                'logo_subtitle': 'International Business Group',
+                'nav_home': 'Bosh Sahifa',
+                'nav_companies': 'Bizning Kompaniyalar',
+                'nav_calculator': 'Hisoblash',
+                'nav_services': 'Xizmatlar',
+                'nav_leadership': 'Rahbariyat',
+                'nav_contact': 'Aloqa',
+                'hero_title': 'International Business Group',
+                'hero_subtitle': 'Global logistika, investitsiyalar va savdo yechimlarida 27 yillik mukammallik',
+                'hero_btn1': 'Hozir Hisoblang',
+                'hero_btn2': 'Bizning CEO Bilan Tanishing',
+                'companies_title': 'Bizning Kompaniyalar Guruhi',
+                'companies_subtitle': 'Turli sohalarda keng qamrovli biznes yechimlari',
+                'calc_title': 'Tezkor Logistika So\'rovi',
+                'calc_subtitle': 'Transport turini tanlang va biz siz bilan darhol bog\'lanamiz',
+                'step1_title': 'Transport Turini Tanlang',
+                'transport_air': 'Havo Yuk Tashish',
+                'transport_sea': 'Dengiz Yuk Tashish',
+                'transport_rail': 'Temir Yo\'l Yuk Tashish',
+                'transport_road': 'Yo\'l Yuk Tashish',
+                'result_text': 'Logistika ehtiyojlaringizni muhokama qilishga tayyormisiz? Biz moslashtirilgan yechim taqdim etamiz.',
+                'result_btn': 'Tezkor Taklif So\'rang',
+                'about_title': 'Nega IBG Group Tanlashadi?',
+                'about_subtitle': '27 yillik ishonch va mukammallik',
+                'feature1_title': '27+ Yillik Tajriba',
+                'feature1_desc': '1997 yildan beri o\'rnatilgan obro\'',
+                'feature2_title': 'Global Tarmoq',
+                'feature2_desc': '12+ mamlakatda strategik sheriklik',
+                'feature3_title': 'Hamyonbop',
+                'feature3_desc': 'Optimallashtirilgan marshrutlar mijozlarga 15-25% tejash',
+                'feature4_title': '24/7 Qo\'llab-quvvatlash',
+                'feature4_desc': 'Har bir mijoz uchun shaxsiy menejer',
+                'services_title': 'Bizning Xizmatlarimiz',
+                'services_subtitle': 'Keng qamrovli logistika va biznes yechimlari',
+                'service1_title': 'Logistika',
+                'service1_desc': 'Havo, dengiz, temir yo\'l va yo\'l transporti',
+                'service1_item1': 'Fracht',
+                'service1_item2': 'Bo\'jxona rasmiylashtirish',
+                'service1_item3': 'Omborxona',
+                'service2_title': 'Investitsiyalar',
+                'service2_desc': 'Strategik biznes rivojlanishi',
+                'service2_item1': 'Bozor tahlili',
+                'service2_item2': 'Sheriklik tashkil etish',
+                'service2_item3': 'Loyiha moliyalash',
+                'service3_title': 'Global Savdo',
+                'service3_desc': 'Xalqaro ulgurji va ta\'minot',
+                'service3_item1': 'Import/eksport',
+                'service3_item2': 'Bozorga kirish',
+                'service3_item3': 'Savdoni osonlashtirish',
+                'service_link': 'Logistika So\'rang →',
+                'qr_title': 'Biz Bilan Bog\'laning',
+                'qr_subtitle': 'Afzal platformangizda bog\'laning',
+                'contact_title': 'Aloqa Ma\'lumotlari',
+                'contact_subtitle': 'Har qanday kanal orqali biz bilan bog\'laning',
+                'form_name': 'To\'liq Ism *',
+                'form_company': 'Kompaniya',
+                'form_email': 'Email *',
+                'form_phone': 'Telefon *',
+                'form_type': 'Kerakli Xizmat *',
+                'form_message': 'Loyiha Tavsifi *',
+                'form_submit': 'So\'rov Yuborish',
+                'form_note': 'Ma\'lumotlaringiz xavfsiz. 24 soat ichida javob beramiz.',
+                'info_title': 'Aloqa Tafsilotlari',
+                'footer_desc': 'Global logistika, strategik investitsiyalar va xalqaro savdo yechimlarida 27 yillik mukammallik.',
+                'footer_links': 'Tezkor Havolalar',
+                'footer_contact': 'Aloqa Ma\'lumotlari',
+                'footer_rights': 'Barcha huquqlar himoyalangan.',
+                'footer_founder': 'Asoschisi: Zafarbek Tojiakhmedov'
+            }
+        };
+
+        let currentLang = 'en';
+        
+        function translatePage(lang) {
+            currentLang = lang;
+            localStorage.setItem('language', lang);
+            
+            document.querySelectorAll('[data-key]').forEach(element => {
+                const key = element.getAttribute('data-key');
+                if (translations[lang] && translations[lang][key]) {
+                    element.textContent = translations[lang][key];
+                }
+            });
+            
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.lang === lang) {
+                    btn.classList.add('active');
+                    btn.style.animation = 'none';
+                    setTimeout(() => {
+                        btn.style.animation = 'scaleIn 0.3s ease';
+                    }, 10);
+                }
+            });
+        }
+
+        // Form Submission
+        document.getElementById('professionalInquiry')?.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const submitBtn = this.querySelector('.btn-submit');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Yuborilmoqda...';
+            submitBtn.disabled = true;
+            
+            setTimeout(() => {
+                submitBtn.innerHTML = '<i class="fas fa-check"></i> Muvaffaqiyatli Yuborildi!';
+                submitBtn.style.background = '#10B981';
+                
+                setTimeout(() => {
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+                    submitBtn.style.background = '';
+                    alert('So\'rovingiz uchun rahmat! Biz siz bilan 24 soat ichida bog\'lanamiz.');
+                    this.reset();
+                    
+                    const serviceSelect = this.querySelector('select');
+                    if (serviceSelect) {
+                        serviceSelect.value = '';
+                    }
+                }, 2000);
+            }, 1500);
+        });
+
+        // Initialize everything when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            // Language buttons
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const lang = this.dataset.lang;
+                    
+                    const ripple = document.createElement('span');
+                    const rect = this.getBoundingClientRect();
+                    const size = Math.max(rect.width, rect.height);
+                    const x = event.clientX - rect.left - size/2;
+                    const y = event.clientY - rect.top - size/2;
+                    
+                    ripple.style.cssText = `
+                        position: absolute;
+                        border-radius: 50%;
+                        background: rgba(212, 175, 55, 0.3);
+                        transform: scale(0);
+                        animation: ripple 0.6s linear;
+                        width: ${size}px;
+                        height: ${size}px;
+                        top: ${y}px;
+                        left: ${x}px;
+                    `;
+                    
+                    this.appendChild(ripple);
+                    setTimeout(() => ripple.remove(), 600);
+                    
+                    translatePage(lang);
+                });
+            });
+            
+            // Set initial language
+            const savedLang = localStorage.getItem('language') || 'en';
+            translatePage(savedLang);
+            
+            // Smooth scroll
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    const href = this.getAttribute('href');
+                    if (href === '#') return;
+                    
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        const headerHeight = document.querySelector('.header').offsetHeight;
+                        const targetPosition = target.getBoundingClientRect().top + window.pageYOffset;
+                        const offsetPosition = targetPosition - headerHeight - 20;
+                        
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: 'smooth'
+                        });
+                        
+                        if (navMenu.classList.contains('active')) {
+                            hamburger.classList.remove('active');
+                            navMenu.classList.remove('active');
+                            document.body.style.overflow = '';
+                        }
+                    }
+                });
+            });
+            
+            // Add parallax effect to hero
+            window.addEventListener('scroll', () => {
+                const scrolled = window.pageYOffset;
+                const hero = document.querySelector('.compact-hero');
+                if (hero) {
+                    const rate = scrolled * -0.5;
+                    hero.style.backgroundPosition = `center ${rate}px`;
+                }
+            });
+        });
+    </script>
+</body>
+</html>
