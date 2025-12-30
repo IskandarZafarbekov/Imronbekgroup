@@ -39,7 +39,6 @@
             color: var(--text-color);
             background-color: var(--black);
             line-height: 1.6;
-            padding-top: 32px;
             overflow-x: hidden;
         }
 
@@ -138,69 +137,10 @@
             animation: shimmer 3s linear infinite;
         }
 
-        /* ===== LANGUAGE SWITCHER ===== */
-        .language-switcher {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background: rgba(10, 10, 10, 0.95);
-            z-index: 1001;
-            padding: 0.5rem 0;
-            text-align: center;
-            border-bottom: 1px solid var(--border-gold);
-            backdrop-filter: blur(10px);
-        }
-
-        .lang-btn {
-            background: transparent;
-            color: var(--text-light);
-            border: 1px solid var(--border-gold);
-            padding: 0.25rem 1rem;
-            border-radius: 4px;
-            cursor: pointer;
-            margin: 0 0.25rem;
-            transition: var(--transition);
-            font-weight: 500;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .lang-btn::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            background: var(--gold);
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            transition: width 0.3s, height 0.3s;
-        }
-
-        .lang-btn:hover::before {
-            width: 100px;
-            height: 100px;
-        }
-
-        .lang-btn:hover {
-            color: var(--black);
-            z-index: 1;
-        }
-
-        .lang-btn.active {
-            background: var(--gold);
-            color: var(--black);
-            border-color: var(--gold);
-            font-weight: 600;
-            box-shadow: var(--shadow-gold);
-        }
-
         /* ===== HEADER ===== */
         .header {
             position: fixed;
-            top: 32px;
+            top: 0;
             left: 0;
             width: 100%;
             background: rgba(5, 5, 5, 0.95);
@@ -212,7 +152,6 @@
         }
 
         .header.scrolled {
-            top: 0;
             background: rgba(5, 5, 5, 0.98);
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
         }
@@ -255,6 +194,7 @@
             display: flex;
             list-style: none;
             gap: 2rem;
+            align-items: center;
         }
 
         .nav-menu a {
@@ -290,6 +230,12 @@
             color: var(--gold);
         }
 
+        .nav-cta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
         .nav-cta .btn {
             padding: 0.6rem 1.5rem;
             font-size: 0.9rem;
@@ -311,6 +257,36 @@
 
         .nav-cta .btn:hover::before {
             left: 100%;
+        }
+
+        .header-lang-buttons {
+            display: flex;
+            gap: 0.5rem;
+            margin-left: 1rem;
+        }
+
+        .header-lang-btn {
+            background: transparent;
+            color: var(--text-light);
+            border: 1px solid var(--border-gold);
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .header-lang-btn:hover {
+            background: var(--gold);
+            color: var(--black);
+        }
+
+        .header-lang-btn.active {
+            background: var(--gold);
+            color: var(--black);
+            border-color: var(--gold);
+            font-weight: 600;
         }
 
         .hamburger {
@@ -387,27 +363,34 @@
             font-size: 1.1rem;
         }
 
-        /* ===== HERO SECTION ===== */
+        /* ===== HERO SECTION WITH VIDEO ===== */
         .compact-hero {
             min-height: 100vh;
-            background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.9)),
-                        url('https://images.unsplash.com/photo-1512453979798-5ea266f8880c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
-            background-size: cover;
-            background-position: center;
+            position: relative;
             display: flex;
             align-items: center;
-            padding-top: 100px;
-            position: relative;
+            overflow: hidden;
         }
 
-        .compact-hero::before {
-            content: '';
+        .video-background {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle at 30% 50%, rgba(212, 175, 55, 0.1) 0%, transparent 50%);
+            object-fit: cover;
+            z-index: -1;
+            opacity: 0.8;
+        }
+
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.7));
+            z-index: 0;
         }
 
         .hero-content {
@@ -416,6 +399,7 @@
             margin: 0 auto;
             position: relative;
             z-index: 1;
+            padding-top: 80px;
         }
 
         .hero-crown {
@@ -444,6 +428,7 @@
             background-clip: text;
             margin-bottom: 1.5rem;
             line-height: 1.1;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         }
 
         .hero-subtitle {
@@ -454,6 +439,7 @@
             margin-left: auto;
             margin-right: auto;
             opacity: 0.9;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
         }
 
         .hero-buttons {
@@ -461,6 +447,37 @@
             gap: 1rem;
             justify-content: center;
             margin-top: 2rem;
+        }
+
+        /* Video controls styling */
+        .video-controls {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            z-index: 2;
+            display: flex;
+            gap: 10px;
+        }
+
+        .video-control-btn {
+            background: rgba(5, 5, 5, 0.7);
+            border: 1px solid var(--border-gold);
+            color: var(--gold);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            backdrop-filter: blur(5px);
+        }
+
+        .video-control-btn:hover {
+            background: var(--gold);
+            color: var(--black);
+            transform: scale(1.1);
         }
 
         /* ===== SIMPLE CALCULATOR ===== */
@@ -1410,6 +1427,17 @@
             right: -30px;
         }
 
+        /* Custom Icons */
+        .fa-kakaotalk:before {
+            content: "💬";
+            font-family: "Font Awesome 6 Free";
+        }
+        
+        .fa-wechat:before {
+            content: "\f1d7";
+            font-family: "Font Awesome 6 Brands";
+        }
+
         /* ===== RESPONSIVE ===== */
         @media (max-width: 1200px) {
             .ceo-content {
@@ -1459,6 +1487,17 @@
             .transport-selector {
                 grid-template-columns: repeat(2, 1fr);
             }
+            
+            .video-controls {
+                bottom: 10px;
+                right: 10px;
+            }
+            
+            .video-control-btn {
+                width: 35px;
+                height: 35px;
+                font-size: 0.9rem;
+            }
         }
 
         @media (max-width: 768px) {
@@ -1489,6 +1528,17 @@
             
             .nav-menu.active {
                 left: 0;
+            }
+            
+            .header-lang-buttons {
+                display: none;
+            }
+            
+            .mobile-lang-buttons {
+                display: flex;
+                justify-content: center;
+                gap: 1rem;
+                margin-top: 2rem;
             }
             
             .hamburger {
@@ -1537,12 +1587,16 @@
             .form-row {
                 grid-template-columns: 1fr;
             }
+            
+            .video-controls {
+                bottom: 15px;
+                right: 15px;
+            }
         }
 
         @media (max-width: 480px) {
             .compact-hero {
                 min-height: 90vh;
-                padding-top: 80px;
             }
             
             .compact-hero h1 {
@@ -1560,19 +1614,21 @@
             .ceo-spotlight {
                 padding: 1.5rem;
             }
+            
+            .video-controls {
+                bottom: 10px;
+                right: 10px;
+            }
+            
+            .video-control-btn {
+                width: 32px;
+                height: 32px;
+                font-size: 0.8rem;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Language Switcher -->
-    <div class="language-switcher">
-        <div class="container">
-            <button class="lang-btn active" data-lang="en">EN</button>
-            <button class="lang-btn" data-lang="ru">RU</button>
-            <button class="lang-btn" data-lang="uz">UZ</button>
-        </div>
-    </div>
-
     <!-- Header -->
     <header class="header">
         <div class="container">
@@ -1593,6 +1649,11 @@
                     <li><a href="#services" data-key="nav_services">Services</a></li>
                     <li><a href="#leadership" data-key="nav_leadership">Leadership</a></li>
                     <li><a href="#contact" data-key="nav_contact">Contact</a></li>
+                    <li class="header-lang-buttons">
+                        <button class="header-lang-btn active" data-lang="en">EN</button>
+                        <button class="header-lang-btn" data-lang="ru">RU</button>
+                        <button class="header-lang-btn" data-lang="uz">UZ</button>
+                    </li>
                 </ul>
                 <div class="nav-cta">
                     <a href="#calculator" class="btn btn-primary" data-key="nav_calculator">Quick Quote</a>
@@ -1606,8 +1667,27 @@
         </div>
     </header>
 
-    <!-- Hero Section -->
+    <!-- Hero Section with Video -->
     <section id="home" class="compact-hero">
+        <!-- Video Background -->
+        <video autoplay muted loop playsinline class="video-background" id="heroVideo">
+            <source src="file:///C:/Users/iskan/Downloads/PixVerse_V5.5_Image_Text_540P_Create_a_30secon.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        
+        <!-- Video Overlay -->
+        <div class="video-overlay"></div>
+        
+        <!-- Video Controls -->
+        <div class="video-controls">
+            <button class="video-control-btn" id="playPauseBtn">
+                <i class="fas fa-pause"></i>
+            </button>
+            <button class="video-control-btn" id="muteUnmuteBtn">
+                <i class="fas fa-volume-up"></i>
+            </button>
+        </div>
+        
         <div class="container">
             <div class="hero-content" data-aos="fade-up" data-aos-duration="1000">
                 <div class="hero-crown">
@@ -1615,7 +1695,7 @@
                 </div>
                 <h1 data-key="hero_title">Imronbek Business Group</h1>
                 <p class="hero-subtitle" data-key="hero_subtitle">
-                    15 Years of Excellence in Global Logistics, Investments & Trade Solutions
+                    27 Years of Excellence in Global Logistics, Investments & Trade Solutions
                 </p>
                 <div class="hero-buttons">
                     <a href="#calculator" class="btn btn-primary" data-key="hero_btn1">Get Quote Now</a>
@@ -1639,8 +1719,8 @@
                         <div class="company-logo">
                             <i class="fas fa-shipping-fast"></i>
                         </div>
-                        <h3>Imronbek Logistics</h3>
-                        <p>Imronbek Logistics - Premium global logistics and freight forwarding</p>
+                        <h3>IBG Logistics</h3>
+                        <p>Premium global logistics and freight forwarding since 1996</p>
                     </div>
                     
                     <div class="company-card" data-aos="fade-up" data-aos-delay="200">
@@ -1655,8 +1735,8 @@
                         <div class="company-logo">
                             <i class="fas fa-handshake"></i>
                         </div>
-                        <h3>Infinite Great Market Global </h3>
-                        <p>Investment partnerships and financial solutions</p>
+                        <h3>Infinite Great Market Global</h3>
+                        <p>Investment partnerships and international trade solutions</p>
                     </div>
                 </div>
             </div>
@@ -1710,7 +1790,7 @@
         <div class="container">
             <div class="section-header" data-aos="fade-up">
                 <h2 data-key="about_title">Why Choose IBG?</h2>
-                <p data-key="about_subtitle">15 years of trusted partnership and excellence</p>
+                <p data-key="about_subtitle">27 years of trusted partnership and excellence</p>
             </div>
             
             <div class="about-grid">
@@ -1718,8 +1798,8 @@
                     <div class="about-icon">
                         <i class="fas fa-history"></i>
                     </div>
-                    <h3 data-key="feature1_title">15+ Years Experience</h3>
-                    <p data-key="feature1_desc">Established track record since 2006</p>
+                    <h3 data-key="feature1_title">27+ Years Experience</h3>
+                    <p data-key="feature1_desc">Established track record since 1996</p>
                 </div>
                 
                 <div class="about-card" data-aos="fade-up" data-aos-delay="200">
@@ -1727,7 +1807,7 @@
                         <i class="fas fa-globe"></i>
                     </div>
                     <h3 data-key="feature2_title">Global Network</h3>
-                    <p data-key="feature2_desc">Strategic partnerships across 12+ countries</p>
+                    <p data-key="feature2_desc">Strategic partnerships across 20+ countries</p>
                 </div>
                 
                 <div class="about-card" data-aos="fade-up" data-aos-delay="300">
@@ -1735,7 +1815,7 @@
                         <i class="fas fa-chart-line"></i>
                     </div>
                     <h3 data-key="feature3_title">Cost-Effective</h3>
-                    <p data-key="feature3_desc">Optimized routes saving clients 15-25%</p>
+                    <p data-key="feature3_desc">Optimized routes saving clients 15-30%</p>
                 </div>
                 
                 <div class="about-card" data-aos="fade-up" data-aos-delay="400">
@@ -1763,11 +1843,11 @@
                         <i class="fas fa-shipping-fast"></i>
                     </div>
                     <h3 data-key="service1_title">Imronbek Logistics</h3>
-                    <p data-key="service1_desc">Air, sea, rail & road transport</p>
+                    <p data-key="service1_desc">Air, sea, rail & road transport worldwide</p>
                     <ul>
                         <li data-key="service1_item1">Freight forwarding</li>
                         <li data-key="service1_item2">Customs clearance</li>
-                        <li data-key="service1_item3">Warehousing</li>
+                        <li data-key="service1_item3">Warehousing & Distribution</li>
                     </ul>
                     <a href="#contact" class="service-link" data-key="service_link">Request Logistics Quote →</a>
                 </div>
@@ -1777,7 +1857,7 @@
                         <i class="fas fa-chart-line"></i>
                     </div>
                     <h3 data-key="service2_title">Roh and Toj Investments</h3>
-                    <p data-key="service2_desc">Strategic business development</p>
+                    <p data-key="service2_desc">Strategic business development and funding</p>
                     <ul>
                         <li data-key="service2_item1">Market analysis</li>
                         <li data-key="service2_item2">Partnership setup</li>
@@ -1791,10 +1871,10 @@
                         <i class="fas fa-globe"></i>
                     </div>
                     <h3 data-key="service3_title">Infinite Great Market Global</h3>
-                    <p data-key="service3_desc">International wholesale & supply</p>
+                    <p data-key="service3_desc">International wholesale & supply chain</p>
                     <ul>
-                        <li data-key="service3_item1">Import/export</li>
-                        <li data-key="service3_item2">Market access</li>
+                        <li data-key="service3_item1">Import/export services</li>
+                        <li data-key="service3_item2">Market access consulting</li>
                         <li data-key="service3_item3">Trade facilitation</li>
                     </ul>
                     <a href="#contact" class="service-link" data-key="service_link">Explore Trade →</a>
@@ -1837,7 +1917,7 @@
                             </div>
                             <div class="achievement-item">
                                 <i class="fas fa-globe-asia"></i>
-                                <span data-key="achievement2">12+ Countries Network</span>
+                                <span data-key="achievement2">20+ Countries Network</span>
                             </div>
                             <div class="achievement-item">
                                 <i class="fas fa-trophy"></i>
@@ -1851,6 +1931,11 @@
                             wisdom with modern technological solutions, creating a unique value proposition for clients 
                             across continents.
                         </p>
+                        
+                        <a href="#contact" class="ceo-contact-btn">
+                            <i class="fas fa-envelope"></i>
+                            <span data-key="ceo_contact">Contact CEO Directly</span>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -1897,7 +1982,7 @@
                         </div>
                         <h4>WeChat</h4>
                         <p>For Chinese market connections</p>
-                        <a href="https://u.wechat.com/kBNZR8Q5C-xco3m7ySaR7K0?s=2" target="_blank" class="qr-link">
+                        <a href="https://u.wechat.com/kBNZR8Q5C-xco3m7ySaR7K0" target="_blank" class="qr-link">
                             <i class="fab fa-wechat"></i>
                             <span>Add Contact</span>
                         </a>
@@ -2051,13 +2136,13 @@
                         </div>
                         <h3>IBG</h3>
                     </div>
-                    <p data-key="footer_desc">15+ years of excellence in global logistics, strategic investments, and international trade solutions.</p>
+                    <p data-key="footer_desc">27+ years of excellence in global logistics, strategic investments, and international trade solutions.</p>
                     <div class="social-links">
                         <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
                         <a href="https://t.me/ibg_group" target="_blank" class="social-link"><i class="fab fa-telegram"></i></a>
                         <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
                         <a href="https://wa.me/998999090777" class="social-link" target="_blank"><i class="fab fa-whatsapp"></i></a>
-                        <a href="https://u.wechat.com/kBNZR8Q5C-xco3m7ySaR7K0?s=2" target="_blank" class="social-link"><i class="fab fa-wechat"></i></a>
+                        <a href="https://u.wechat.com/kBNZR8Q5C-xco3m7ySaR7K0" target="_blank" class="social-link"><i class="fab fa-wechat"></i></a>
                         <a href="https://qr.kakao.com/talk/jLWKBOkrdR30ZDpkBXswPJnkCKM-" target="_blank" class="social-link"><i class="fas fa-kakaotalk"></i></a>
                     </div>
                 </div>
@@ -2075,11 +2160,11 @@
                 </div>
                 
                 <div class="footer-col">
-                    <h3>Our Companies</h3>
+                    <h3 data-key="footer_companies">Our Companies</h3>
                     <ul>
-                        <li><a href="#companies">IBG (Logistics)</a></li>
+                        <li><a href="#companies">IBG Logistics</a></li>
                         <li><a href="#companies">Roh and Toj (Investments)</a></li>
-                        <li><a href="#companies">Infinite Global Market (Finance)</a></li>
+                        <li><a href="#companies">Infinite Great Market Global</a></li>
                     </ul>
                 </div>
                 
@@ -2097,7 +2182,7 @@
             
             <div class="footer-bottom">
                 <p>&copy; 2025 Imronbek Business Group. <span data-key="footer_rights">All rights reserved.</span></p>
-                <p class="founder-credit"><span data-key="footer_founder">Founded by Zafarbek Tojiakhmedov • Established 2006 • 15+ Years of Excellence</span></p>
+                <p class="founder-credit"><span data-key="footer_founder">Founded by Zafarbek Tojiakhmedov • Established 1996 • 27+ Years of Excellence</span></p>
             </div>
         </div>
     </footer>
@@ -2127,7 +2212,11 @@
         }
 
         navLinks.forEach(link => {
-            link.addEventListener('click', () => {
+            link.addEventListener('click', (e) => {
+                if (link.classList.contains('header-lang-btn')) {
+                    e.preventDefault();
+                    return;
+                }
                 hamburger.classList.remove('active');
                 navMenu.classList.remove('active');
                 document.body.style.overflow = '';
@@ -2146,7 +2235,7 @@
 
         // Active nav link on scroll
         const sections = document.querySelectorAll('section');
-        const navItems = document.querySelectorAll('.nav-menu a');
+        const navItems = document.querySelectorAll('.nav-menu a:not(.header-lang-btn)');
 
         function setActiveNavLink() {
             let current = '';
@@ -2204,6 +2293,32 @@
             }, 800);
         });
 
+        // Video Controls
+        const heroVideo = document.getElementById('heroVideo');
+        const playPauseBtn = document.getElementById('playPauseBtn');
+        const muteUnmuteBtn = document.getElementById('muteUnmuteBtn');
+
+        if (heroVideo && playPauseBtn) {
+            playPauseBtn.addEventListener('click', () => {
+                if (heroVideo.paused) {
+                    heroVideo.play();
+                    playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                } else {
+                    heroVideo.pause();
+                    playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+                }
+            });
+        }
+
+        if (heroVideo && muteUnmuteBtn) {
+            muteUnmuteBtn.addEventListener('click', () => {
+                heroVideo.muted = !heroVideo.muted;
+                muteUnmuteBtn.innerHTML = heroVideo.muted 
+                    ? '<i class="fas fa-volume-mute"></i>' 
+                    : '<i class="fas fa-volume-up"></i>';
+            });
+        }
+
         // Language Switching
         const translations = {
             en: {
@@ -2215,7 +2330,7 @@
                 'nav_leadership': 'Leadership',
                 'nav_contact': 'Contact',
                 'hero_title': 'Imronbek Business Group',
-                'hero_subtitle': '15+ Years of Excellence in Global Logistics, Investments & Trade Solutions',
+                'hero_subtitle': '27 Years of Excellence in Global Logistics, Investments & Trade Solutions',
                 'hero_btn1': 'Get Quote Now',
                 'hero_btn2': 'Meet Our CEO',
                 'companies_title': 'Our Group of Companies',
@@ -2229,34 +2344,44 @@
                 'transport_road': 'Road Transport',
                 'result_text': 'Ready to discuss your logistics needs? We\'ll provide a customized solution.',
                 'result_btn': 'Request Immediate Quote',
-                'about_title': 'Why Choose IBG ?',
-                'about_subtitle': '15+ years of trusted partnership and excellence',
+                'about_title': 'Why Choose IBG?',
+                'about_subtitle': '27 years of trusted partnership and excellence',
                 'feature1_title': '27+ Years Experience',
-                'feature1_desc': 'Established track record since 2006',
+                'feature1_desc': 'Established track record since 1996',
                 'feature2_title': 'Global Network',
-                'feature2_desc': 'Strategic partnerships across 12+ countries',
+                'feature2_desc': 'Strategic partnerships across 20+ countries',
                 'feature3_title': 'Cost-Effective',
-                'feature3_desc': 'Optimized routes saving clients 15-25%',
+                'feature3_desc': 'Optimized routes saving clients 15-30%',
                 'feature4_title': '24/7 Support',
                 'feature4_desc': 'Personal manager for each client',
                 'services_title': 'Our Services',
                 'services_subtitle': 'Comprehensive logistics and business solutions',
-                'service1_title': 'Logistics',
-                'service1_desc': 'Air, sea, rail & road transport',
+                'service1_title': 'Imronbek Logistics',
+                'service1_desc': 'Air, sea, rail & road transport worldwide',
                 'service1_item1': 'Freight forwarding',
                 'service1_item2': 'Customs clearance',
-                'service1_item3': 'Warehousing',
-                'service2_title': 'Investments',
-                'service2_desc': 'Strategic business development',
+                'service1_item3': 'Warehousing & Distribution',
+                'service2_title': 'Roh and Toj Investments',
+                'service2_desc': 'Strategic business development and funding',
                 'service2_item1': 'Market analysis',
                 'service2_item2': 'Partnership setup',
                 'service2_item3': 'Project funding',
-                'service3_title': 'Global Trade',
-                'service3_desc': 'International wholesale & supply',
-                'service3_item1': 'Import/export',
-                'service3_item2': 'Market access',
+                'service3_title': 'Infinite Great Market Global',
+                'service3_desc': 'International wholesale & supply chain',
+                'service3_item1': 'Import/export services',
+                'service3_item2': 'Market access consulting',
                 'service3_item3': 'Trade facilitation',
                 'service_link': 'Request Logistics Quote →',
+                'ceo_title': 'Leadership & Vision',
+                'ceo_subtitle': 'Driving excellence from the top',
+                'ceo_name': 'Zafarbek Tojiakhmedov',
+                'ceo_position': 'Founder & Chief Executive Officer',
+                'ceo_quote': '"For 27 years, we have been bridging Uzbekistan with global markets through innovative logistics solutions, strategic investments, and unwavering commitment to excellence. We don\'t just move goods; we build relationships that transcend borders."',
+                'ceo_bio': 'With 27 years of experience in international trade and logistics, Zafarbek has transformed IBG Group into a leading force in Central Asian business. His vision combines traditional business wisdom with modern technological solutions, creating a unique value proposition for clients across continents.',
+                'ceo_contact': 'Contact CEO Directly',
+                'achievement1': '27+ Years Experience',
+                'achievement2': '20+ Countries Network',
+                'achievement3': 'Industry Awards',
                 'qr_title': 'Connect With Us',
                 'qr_subtitle': 'Connect on your preferred platform',
                 'contact_title': 'Contact Information',
@@ -2270,27 +2395,28 @@
                 'form_submit': 'Send Inquiry',
                 'form_note': 'Your information is secure. We\'ll respond within 24 hours.',
                 'info_title': 'Contact Details',
-                'footer_desc': '15+ years of excellence in global logistics, strategic investments, and international trade solutions.',
+                'footer_desc': '27+ years of excellence in global logistics, strategic investments, and international trade solutions.',
                 'footer_links': 'Quick Links',
+                'footer_companies': 'Our Companies',
                 'footer_contact': 'Contact Info',
                 'footer_rights': 'All rights reserved.',
-                'footer_founder': 'Founded by Zafarbek Tojiakhmedov'
+                'footer_founder': 'Founded by Zafarbek Tojiakhmedov • Established 1996 • 27+ Years of Excellence'
             },
             ru: {
-                'logo_subtitle': 'Имронбек Бизнес Группа',
+                'logo_subtitle': 'Imronbek Business Group',
                 'nav_home': 'Главная',
                 'nav_companies': 'Наши Компании',
-                'nav_calculator': 'Расчет',
+                'nav_calculator': 'Рассчитать',
                 'nav_services': 'Услуги',
                 'nav_leadership': 'Руководство',
                 'nav_contact': 'Контакты',
-                'hero_title': 'Имронбек Бизнес Группа',
-                'hero_subtitle': '15+ лет совершенства в глобальной логистике, инвестициях и торговых решениях',
-                'hero_btn1': 'Рассчитать Сейчас',
-                'hero_btn2': 'Встретьтесь с CEO',
+                'hero_title': 'Imronbek Business Group',
+                'hero_subtitle': '27 лет совершенства в глобальной логистике, инвестициях и торговых решениях',
+                'hero_btn1': 'Получить Расчёт',
+                'hero_btn2': 'Встретиться с CEO',
                 'companies_title': 'Наша Группа Компаний',
                 'companies_subtitle': 'Комплексные бизнес-решения в различных секторах',
-                'calc_title': 'Быстрый Логистический Запрос',
+                'calc_title': 'Быстрый Запрос на Логистику',
                 'calc_subtitle': 'Выберите тип транспорта и мы свяжемся с вами немедленно',
                 'step1_title': 'Выберите Тип Транспорта',
                 'transport_air': 'Авиаперевозки',
@@ -2299,39 +2425,49 @@
                 'transport_road': 'Автоперевозки',
                 'result_text': 'Готовы обсудить ваши логистические потребности? Мы предоставим индивидуальное решение.',
                 'result_btn': 'Запросить Предложение',
-                'about_title': 'Почему Выбирают IBG ?',
-                'about_subtitle': '15+ лет доверия и совершенства',
+                'about_title': 'Почему Выбирают IBG?',
+                'about_subtitle': '27 лет доверия и совершенства',
                 'feature1_title': '27+ лет опыта',
-                'feature1_desc': 'Установленная репутация с 2006 года',
+                'feature1_desc': 'Установленная репутация с 1996 года',
                 'feature2_title': 'Глобальная Сеть',
-                'feature2_desc': 'Стратегическое партнерство в 12+ странах',
+                'feature2_desc': 'Стратегическое партнерство в 20+ странах',
                 'feature3_title': 'Экономическая Эффективность',
-                'feature3_desc': 'Оптимизированные маршруты экономят клиентам 15-25%',
+                'feature3_desc': 'Оптимизированные маршруты экономят клиентам 15-30%',
                 'feature4_title': 'Поддержка 24/7',
                 'feature4_desc': 'Персональный менеджер для каждого клиента',
                 'services_title': 'Наши Услуги',
                 'services_subtitle': 'Комплексные логистические и бизнес-решения',
-                'service1_title': 'Логистика',
-                'service1_desc': 'Авиа, морские, ж/д и авто перевозки',
-                'service1_item1': 'Фрахт',
+                'service1_title': 'Imronbek Логистика',
+                'service1_desc': 'Авиа, морские, ж/д и авто перевозки по всему миру',
+                'service1_item1': 'Фрахтование',
                 'service1_item2': 'Таможенное оформление',
-                'service1_item3': 'Складирование',
-                'service2_title': 'Инвестиции',
-                'service2_desc': 'Стратегическое развитие бизнеса',
+                'service1_item3': 'Складирование и дистрибуция',
+                'service2_title': 'Roh and Toj Инвестиции',
+                'service2_desc': 'Стратегическое развитие бизнеса и финансирование',
                 'service2_item1': 'Анализ рынка',
                 'service2_item2': 'Организация партнерства',
                 'service2_item3': 'Финансирование проектов',
-                'service3_title': 'Международная Торговля',
-                'service3_desc': 'Международный опт и поставки',
-                'service3_item1': 'Импорт/экспорт',
-                'service3_item2': 'Выход на рынок',
+                'service3_title': 'Infinite Great Market Global',
+                'service3_desc': 'Международный опт и управление цепочками поставок',
+                'service3_item1': 'Импорт/экспорт услуги',
+                'service3_item2': 'Консалтинг по выходу на рынок',
                 'service3_item3': 'Содействие торговле',
                 'service_link': 'Запросить Логистику →',
+                'ceo_title': 'Руководство и Видение',
+                'ceo_subtitle': 'Ведущие совершенство с вершины',
+                'ceo_name': 'Зафарбек Тожиахмедов',
+                'ceo_position': 'Основатель и Генеральный Директор',
+                'ceo_quote': '"27 лет мы соединяем Узбекистан с мировыми рынками через инновационные логистические решения, стратегические инвестиции и непоколебимую приверженность совершенству. Мы не просто перемещаем товары; мы строим отношения, которые преодолевают границы."',
+                'ceo_bio': 'Имея 27-летний опыт в международной торговле и логистике, Зафарбек превратил группу IBG в ведущую силу в бизнесе Центральной Азии. Его видение сочетает традиционную бизнес-мудрость с современными технологическими решениями, создавая уникальное ценностное предложение для клиентов по всему миру.',
+                'ceo_contact': 'Связаться с CEO',
+                'achievement1': '27+ лет опыта',
+                'achievement2': '20+ стран сеть',
+                'achievement3': 'Отраслевые награды',
                 'qr_title': 'Свяжитесь с Нами',
                 'qr_subtitle': 'Свяжитесь на предпочитаемой платформе',
                 'contact_title': 'Контактная Информация',
                 'contact_subtitle': 'Свяжитесь с нами через любой канал',
-                'form_name': 'ФИО *',
+                'form_name': 'Полное Имя *',
                 'form_company': 'Компания',
                 'form_email': 'Email *',
                 'form_phone': 'Телефон *',
@@ -2340,14 +2476,15 @@
                 'form_submit': 'Отправить Запрос',
                 'form_note': 'Ваши данные защищены. Ответим в течение 24 часов.',
                 'info_title': 'Контактные Данные',
-                'footer_desc': '15+ лет совершенства в глобальной логистике, стратегических инвестициях и международных торговых решениях.',
+                'footer_desc': '27+ лет совершенства в глобальной логистике, стратегических инвестициях и международных торговых решениях.',
                 'footer_links': 'Быстрые Ссылки',
+                'footer_companies': 'Наши Компании',
                 'footer_contact': 'Контактная Информация',
                 'footer_rights': 'Все права защищены.',
-                'footer_founder': 'Основатель: Зафарбек Тожиахмедов'
+                'footer_founder': 'Основатель: Зафарбек Тожиахмедов • Основана в 1996 • 27+ лет совершенства'
             },
             uz: {
-                'logo_subtitle': 'Imronbek  Business Group',
+                'logo_subtitle': 'Imronbek Business Group',
                 'nav_home': 'Bosh Sahifa',
                 'nav_companies': 'Bizning Kompaniyalar',
                 'nav_calculator': 'Hisoblash',
@@ -2357,7 +2494,7 @@
                 'hero_title': 'Imronbek Business Group',
                 'hero_subtitle': 'Global logistika, investitsiyalar va savdo yechimlarida 27 yillik mukammallik',
                 'hero_btn1': 'Hozir Hisoblang',
-                'hero_btn2': 'Bizning CEO Bilan Tanishing',
+                'hero_btn2': 'Bizning CEO bilan Tanishish',
                 'companies_title': 'Bizning Kompaniyalar Guruhi',
                 'companies_subtitle': 'Turli sohalarda keng qamrovli biznes yechimlari',
                 'calc_title': 'Tezkor Logistika So\'rovi',
@@ -2369,34 +2506,44 @@
                 'transport_road': 'Yo\'l Yuk Tashish',
                 'result_text': 'Logistika ehtiyojlaringizni muhokama qilishga tayyormisiz? Biz moslashtirilgan yechim taqdim etamiz.',
                 'result_btn': 'Tezkor Taklif So\'rang',
-                'about_title': 'Nega IBG  Tanlashadi?',
-                'about_subtitle': '15+ yillik ishonch va mukammallik',
+                'about_title': 'Nega IBG Tanlashadi?',
+                'about_subtitle': '27 yillik ishonch va mukammallik',
                 'feature1_title': '27+ Yillik Tajriba',
-                'feature1_desc': '2006 yildan beri o\'rnatilgan obro\'',
+                'feature1_desc': '1996 yildan beri o\'rnatilgan obro\'',
                 'feature2_title': 'Global Tarmoq',
-                'feature2_desc': '12+ mamlakatda strategik sheriklik',
+                'feature2_desc': '20+ mamlakatda strategik sheriklik',
                 'feature3_title': 'Hamyonbop',
-                'feature3_desc': 'Optimallashtirilgan marshrutlar mijozlarga 15-25% tejash',
+                'feature3_desc': 'Optimallashtirilgan marshrutlar mijozlarga 15-30% tejash',
                 'feature4_title': '24/7 Qo\'llab-quvvatlash',
                 'feature4_desc': 'Har bir mijoz uchun shaxsiy menejer',
                 'services_title': 'Bizning Xizmatlarimiz',
                 'services_subtitle': 'Keng qamrovli logistika va biznes yechimlari',
-                'service1_title': 'Logistika',
-                'service1_desc': 'Havo, dengiz, temir yo\'l va yo\'l transporti',
-                'service1_item1': 'Fracht',
+                'service1_title': 'Imronbek Logistika',
+                'service1_desc': 'Havo, dengiz, temir yo\'l va yo\'l transporti butun dunyo bo\'ylab',
+                'service1_item1': 'Fracht xizmatlari',
                 'service1_item2': 'Bo\'jxona rasmiylashtirish',
-                'service1_item3': 'Omborxona',
-                'service2_title': 'Investitsiyalar',
-                'service2_desc': 'Strategik biznes rivojlanishi',
+                'service1_item3': 'Omborxona va Tarqatish',
+                'service2_title': 'Roh and Toj Investitsiyalar',
+                'service2_desc': 'Strategik biznes rivojlanishi va moliyalash',
                 'service2_item1': 'Bozor tahlili',
                 'service2_item2': 'Sheriklik tashkil etish',
                 'service2_item3': 'Loyiha moliyalash',
-                'service3_title': 'Global Savdo',
-                'service3_desc': 'Xalqaro ulgurji va ta\'minot',
-                'service3_item1': 'Import/eksport',
-                'service3_item2': 'Bozorga kirish',
+                'service3_title': 'Infinite Great Market Global',
+                'service3_desc': 'Xalqaro ulgurji va ta\'minot zanjiri',
+                'service3_item1': 'Import/eksport xizmatlari',
+                'service3_item2': 'Bozorga kirish maslahati',
                 'service3_item3': 'Savdoni osonlashtirish',
                 'service_link': 'Logistika So\'rang →',
+                'ceo_title': 'Rahbariyat va Ko\'rinish',
+                'ceo_subtitle': 'Yuqoridan mukammallikni boshqarish',
+                'ceo_name': 'Zafarbek Tojiakhmedov',
+                'ceo_position': 'Asoschi va Bosh Direktor',
+                'ceo_quote': '"27 yil davomida biz O\'zbekistonni global bozorlar bilan innovatsion logistika yechimlari, strategik investitsiyalar va mukammallikka sadoqat orqali bog\'ladik. Biz nafaqat tovarlarni harakatlantirmaymiz; biz chegaralarni buzadigan munosabatlarni quramiz."',
+                'ceo_bio': 'Xalqaro savdo va logistika sohasida 27 yillik tajribaga ega bo\'lgan Zafarbek, IBG guruhini Markaziy Osiyo biznesida yetakchi kuchga aylantirdi. Uning ko\'rinishi an\'anaviy biznes donoligini zamonaviy texnologik yechimlar bilan birlashtirib, butun dunyo bo\'ylab mijozlar uchun noyob qadriyat taklifini yaratadi.',
+                'ceo_contact': 'CEO bilan Bog\'lanish',
+                'achievement1': '27+ Yillik Tajriba',
+                'achievement2': '20+ Mamlakat Tarmog\'i',
+                'achievement3': 'Sanoat Mukofotlari',
                 'qr_title': 'Biz Bilan Bog\'laning',
                 'qr_subtitle': 'Afzal platformangizda bog\'laning',
                 'contact_title': 'Aloqa Ma\'lumotlari',
@@ -2412,9 +2559,10 @@
                 'info_title': 'Aloqa Tafsilotlari',
                 'footer_desc': 'Global logistika, strategik investitsiyalar va xalqaro savdo yechimlarida 27 yillik mukammallik.',
                 'footer_links': 'Tezkor Havolalar',
+                'footer_companies': 'Bizning Kompaniyalar',
                 'footer_contact': 'Aloqa Ma\'lumotlari',
                 'footer_rights': 'Barcha huquqlar himoyalangan.',
-                'footer_founder': 'Asoschisi: Zafarbek Tojiakhmedov'
+                'footer_founder': 'Asoschisi: Zafarbek Tojiakhmedov • 1996 yilda tashkil etilgan • 27+ yillik mukammallik'
             }
         };
 
@@ -2431,7 +2579,8 @@
                 }
             });
             
-            document.querySelectorAll('.lang-btn').forEach(btn => {
+            // Update all language buttons
+            document.querySelectorAll('.header-lang-btn').forEach(btn => {
                 btn.classList.remove('active');
                 if (btn.dataset.lang === lang) {
                     btn.classList.add('active');
@@ -2441,6 +2590,41 @@
                     }, 10);
                 }
             });
+            
+            // Update placeholder texts
+            const placeholders = {
+                'en': {
+                    'name': 'John Smith',
+                    'company': 'Your Company Name',
+                    'email': 'john@company.com',
+                    'phone': '+998 90 123 45 67',
+                    'message': 'Tell us about your project...'
+                },
+                'ru': {
+                    'name': 'Иван Иванов',
+                    'company': 'Название вашей компании',
+                    'email': 'ivan@company.com',
+                    'phone': '+998 90 123 45 67',
+                    'message': 'Расскажите нам о вашем проекте...'
+                },
+                'uz': {
+                    'name': 'Ali Valiyev',
+                    'company': 'Sizning Kompaniya Nomingiz',
+                    'email': 'ali@company.com',
+                    'phone': '+998 90 123 45 67',
+                    'message': 'Loyihangiz haqida bizga aytib bering...'
+                }
+            };
+            
+            const form = document.getElementById('professionalInquiry');
+            if (form) {
+                const inputs = form.querySelectorAll('input, textarea');
+                inputs[0].placeholder = placeholders[lang].name;
+                inputs[1].placeholder = placeholders[lang].company;
+                inputs[2].placeholder = placeholders[lang].email;
+                inputs[3].placeholder = placeholders[lang].phone;
+                inputs[5].placeholder = placeholders[lang].message;
+            }
         }
 
         // Form Submission
@@ -2449,18 +2633,26 @@
             
             const submitBtn = this.querySelector('.btn-submit');
             const originalText = submitBtn.innerHTML;
-            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Yuborilmoqda...';
+            
+            // Get current language for success message
+            const successMessages = {
+                'en': 'Thank you for your inquiry! We will contact you within 24 hours.',
+                'ru': 'Спасибо за ваш запрос! Мы свяжемся с вами в течение 24 часов.',
+                'uz': 'So\'rovingiz uchun rahmat! Biz siz bilan 24 soat ichida bog\'lanamiz.'
+            };
+            
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> ' + (currentLang === 'en' ? 'Sending...' : currentLang === 'ru' ? 'Отправка...' : 'Yuborilmoqda...');
             submitBtn.disabled = true;
             
             setTimeout(() => {
-                submitBtn.innerHTML = '<i class="fas fa-check"></i> Muvaffaqiyatli Yuborildi!';
+                submitBtn.innerHTML = '<i class="fas fa-check"></i> ' + (currentLang === 'en' ? 'Successfully Sent!' : currentLang === 'ru' ? 'Успешно отправлено!' : 'Muvaffaqiyatli Yuborildi!');
                 submitBtn.style.background = '#10B981';
                 
                 setTimeout(() => {
                     submitBtn.innerHTML = originalText;
                     submitBtn.disabled = false;
                     submitBtn.style.background = '';
-                    alert('So\'rovingiz uchun rahmat! Biz siz bilan 24 soat ichida bog\'lanamiz.');
+                    alert(successMessages[currentLang]);
                     this.reset();
                     
                     const serviceSelect = this.querySelector('select');
@@ -2474,7 +2666,7 @@
         // Initialize everything when page loads
         document.addEventListener('DOMContentLoaded', function() {
             // Language buttons
-            document.querySelectorAll('.lang-btn').forEach(btn => {
+            document.querySelectorAll('.header-lang-btn').forEach(btn => {
                 btn.addEventListener('click', function() {
                     const lang = this.dataset.lang;
                     
@@ -2534,17 +2726,29 @@
                 });
             });
             
-            // Add parallax effect to hero
-            window.addEventListener('scroll', () => {
-                const scrolled = window.pageYOffset;
-                const hero = document.querySelector('.compact-hero');
-                if (hero) {
-                    const rate = scrolled * -0.5;
-                    hero.style.backgroundPosition = `center ${rate}px`;
-                }
+            // Add language buttons to mobile menu
+            const mobileLangButtons = document.createElement('div');
+            mobileLangButtons.className = 'mobile-lang-buttons';
+            mobileLangButtons.innerHTML = `
+                <button class="header-lang-btn" data-lang="en">EN</button>
+                <button class="header-lang-btn" data-lang="ru">RU</button>
+                <button class="header-lang-btn" data-lang="uz">UZ</button>
+            `;
+            document.querySelector('.nav-menu').appendChild(mobileLangButtons);
+            
+            // Add click events to mobile language buttons
+            mobileLangButtons.querySelectorAll('.header-lang-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const lang = this.dataset.lang;
+                    translatePage(lang);
+                    
+                    // Close mobile menu after language selection
+                    hamburger.classList.remove('active');
+                    navMenu.classList.remove('active');
+                    document.body.style.overflow = '';
+                });
             });
         });
     </script>
 </body>
 </html>
-
